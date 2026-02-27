@@ -1,4 +1,4 @@
-# 📦 NexBox - Sistema de Gestão e PDV Portátil
+# NexBox - Sistema de Gestão e PDV Portátil
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)]()
 [![WPF](https://img.shields.io/badge/WPF-Windows_Desktop-0078D4?style=for-the-badge&logo=windows&logoColor=white)]()
@@ -8,7 +8,7 @@ Bem-vindo ao **NexBox** (anteriormente chamado *ProductSync*)! Um ecossistema de
 
 <br/>
 
-## 🎯 O Objetivo do Projeto
+## O Objetivo do Projeto
 
 O objetivo principal desta aplicação foi desafiar a forma como as aplicações desktop são entregues hoje. Em vez de obrigar o cliente a baixar instaladores pesados, instalar serviços de banco de dados na máquina ou iniciar servidores manuais complexos, queríamos algo quase mágico: **um sistema operacional de vendas que pudesse ser executado diretamente de um pendrive**, sem deixar rastros.
 
@@ -16,7 +16,7 @@ Nós unimos o poder robusto e veloz de uma API Back-end .NET com uma interface D
 
 <br/>
 
-## 💻 As Ferramentas & Tecnologias
+## As Ferramentas & Tecnologias
 
 Foi utilizado o que há de mais recente no ecossistema C# e .NET 8.0:
 - **C# 12 & .NET 8**: Motores principais do sistema de ponta a ponta.
@@ -28,7 +28,7 @@ Foi utilizado o que há de mais recente no ecossistema C# e .NET 8.0:
 
 <br/>
 
-## 🏔️ A Jornada & Nossas Dificuldades
+## A Jornada & Nossas Dificuldades
 
 Desenvolver um sistema robusto num ecossistema fechado não foi tão simples quanto parecia. Enfrentamos diversas batalhas e reescrevemos motores para alcançar os melhores resultados, em especial:
 
