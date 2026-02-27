@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProductManagementSystem.MauiClient.DashboardPage"
+             Title="ProductSync Dashboard"
+             BackgroundColor="#060913">
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header -->
+        <Frame Grid.Row="0" BackgroundColor="#10172A" BorderColor="#1FFFFFFF" CornerRadius="0" Padding="15">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label x:Name="txtUser" Text="Bem-vindo" VerticalOptions="Center" TextColor="White" FontSize="18" FontAttributes="Bold" />
+                <Button Grid.Column="1" Text="Logout" Clicked="OnLogoutClicked" BackgroundColor="#ef4444" TextColor="White" CornerRadius="8" Padding="15,0"/>
+            </Grid>
+        </Frame>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Text="CARREGAR PRODUTOS" Clicked="OnLoadProductsClicked" BackgroundColor="#0ea5e9" TextColor="White" CornerRadius="8" WidthRequest="200" HorizontalOptions="Start" Margin="0,0,0,20"/>
+
+            <CollectionView x:Name="productsCollection" Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#10172A" BorderColor="#1FFFFFFF" CornerRadius="10" Padding="15" Margin="0,5">
+                            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                                <Label Grid.Column="0" Text="{Binding Id, StringFormat='#{0}'}" TextColor="#94a3b8" VerticalOptions="Center" Margin="0,0,15,0" />
+                                <Label Grid.Column="1" Text="{Binding Nome}" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" />
+                                <Label Grid.Column="2" Text="{Binding Preco, StringFormat='${0:F2}'}" TextColor="#22c55e" VerticalOptions="Center" Margin="0,0,20,0" />
+                                <Label Grid.Column="3" Text="{Binding Estoque, StringFormat='Stock: {0}'}" TextColor="#f8fafc" VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

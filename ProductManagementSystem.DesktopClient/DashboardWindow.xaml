@@ -1,0 +1,457 @@
+<Window x:Class="ProductManagementSystem.DesktopClient.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="NexBox - Dashboard" Height="750" Width="1150"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Icon="pack://application:,,,/Assets/icon.png"
+        MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <Style x:Key="OrangeBtn" TargetType="Button">
+            <Setter Property="Background" Value="#e6570a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="18,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#cc4a08"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="GhostBtn" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#64748b"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#e2e8f0"/>
+            <Setter Property="Padding" Value="14,7"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#f8fafc"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.4"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border CornerRadius="12" Margin="10" Background="#f5f5f5">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.25" Color="#000"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#343a40" CornerRadius="12,0,0,12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Padding="20,24,20,20" BorderThickness="0,0,0,1" BorderBrush="#444c54">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Assets/icon.png" Width="38" Height="38" Margin="0,0,12,0" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="NexBox" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                                <TextBlock Text="Management" Foreground="#8c949c" FontSize="10"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Margin="12,16,12,0">
+                        <TextBlock Text="MAIN MENU" Foreground="#6c757d" FontSize="10" FontWeight="SemiBold" Margin="12,0,0,8"/>
+
+                        <Border x:Name="navDashboard" Background="#e6570a" CornerRadius="8" Padding="14,10" Margin="0,0,0,2" Cursor="Hand" MouseLeftButtonDown="Nav_Dashboard">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ViewDashboardOutline" Width="20" Height="20" Margin="0,0,12,0" Foreground="White"/>
+                                <TextBlock x:Name="txtNavDashboard" Text="Dashboard" FontWeight="SemiBold" Foreground="White" FontSize="13" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="navOrders" Background="Transparent" CornerRadius="8" Padding="14,10" Margin="0,0,0,2" Cursor="Hand" MouseLeftButtonDown="Nav_Orders">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ClipboardTextOutline" Width="20" Height="20" Margin="0,0,12,0" Foreground="#8c949c"/>
+                                <TextBlock x:Name="txtNavOrders" Text="Pedidos" FontWeight="Medium" Foreground="#c8cdd2" FontSize="13" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="navAnalytics" Background="Transparent" CornerRadius="8" Padding="14,10" Margin="0,0,0,2" Cursor="Hand" MouseLeftButtonDown="Nav_Analytics">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="ChartBoxOutline" Width="20" Height="20" Margin="0,0,12,0" Foreground="#8c949c"/>
+                                <TextBlock x:Name="txtNavAnalytics" Text="Relatórios" FontWeight="Medium" Foreground="#c8cdd2" FontSize="13" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="navCustomers" Background="Transparent" CornerRadius="8" Padding="14,10" Margin="0,0,0,2" Cursor="Hand" MouseLeftButtonDown="Nav_Customers">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="AccountGroupOutline" Width="20" Height="20" Margin="0,0,12,0" Foreground="#8c949c"/>
+                                <TextBlock x:Name="txtNavCustomers" Text="Clientes" FontWeight="Medium" Foreground="#c8cdd2" FontSize="13" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border x:Name="navSettings" Background="Transparent" CornerRadius="8" Padding="14,10" Margin="0,0,0,2" Cursor="Hand" MouseLeftButtonDown="Nav_Settings">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="CogOutline" Width="20" Height="20" Margin="0,0,12,0" Foreground="#8c949c"/>
+                                <TextBlock x:Name="txtNavSettings" Text="Configurações" FontWeight="Medium" Foreground="#c8cdd2" FontSize="13" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="#444c54" Margin="16,0,16,16" Padding="0,16,0,0">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Background="#e6570a" CornerRadius="20" Width="36" Height="36" Margin="0,0,10,0">
+                                    <TextBlock Text="A" Foreground="White" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="txtUser" Text="Admin" Foreground="White" FontSize="13" FontWeight="SemiBold"/>
+                                    <TextBlock Text="Administrador" Foreground="#8c949c" FontSize="10"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Button x:Name="btnLogOut" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Foreground="#8c949c" Click="Logout_Click" ToolTip="Sair" Cursor="Hand">
+                                <md:PackIcon Kind="ExitToApp" Width="20" Height="20"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="56"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="White" BorderThickness="0,0,0,1" BorderBrush="#e5e7eb" CornerRadius="0,12,0,0">
+                    <Grid Margin="24,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <md:PackIcon Kind="Magnify" Width="18" Height="18" Foreground="#94a3b8" Margin="0,0,8,0"/>
+                            <TextBlock Text="Buscar..." Foreground="#94a3b8" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button x:Name="btnClose" Content="FECHAR" Click="Close_Click" Background="#fee2e2" Foreground="#dc2626" FontSize="11" BorderThickness="0" Padding="14,7" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Background="#f5f5f5" CornerRadius="0,0,12,0" Padding="24,20">
+                    <Grid>
+                        <Grid x:Name="pageDashboard">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Margin="0,0,0,20">
+                                <StackPanel>
+                                    <TextBlock x:Name="txtTitle" Text="Inventário de Produtos" Foreground="#1e293b" FontSize="22" FontWeight="Bold"/>
+                                    <TextBlock Text="Gerencie seus produtos de forma simples e eficiente" Foreground="#64748b" FontSize="12" Margin="0,4,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <Button x:Name="btnCart" Content="CARRINHO (0)" Click="BtnCart_Click" Style="{StaticResource GhostBtn}" Margin="0,0,8,0"/>
+                                    <Button x:Name="btnNew" Content="+ NOVO PRODUTO" Click="NewProduct_Click" Style="{StaticResource OrangeBtn}"/>
+                                    <Button x:Name="btnRefresh" Click="LoadProducts_Click" Style="{StaticResource GhostBtn}" Margin="8,0,0,0" Padding="8,7">
+                                        <md:PackIcon Kind="Refresh" Width="16" Height="16"/>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="dataGridProducts">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Width="215" Margin="0,0,16,16" Background="White" CornerRadius="10" ClipToBounds="True">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="8" Opacity="0.08" ShadowDepth="2" Color="#000"/>
+                                                </Border.Effect>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="140"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Border Background="#f8fafc" ClipToBounds="True">
+                                                        <Image Source="{Binding ProxyImageUrl}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                    <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6" Orientation="Horizontal">
+                                                        <Button Background="#e6570a" BorderThickness="0" Foreground="White" Width="28" Height="28" Padding="0" Click="AddToCart_Click" Tag="{Binding}" ToolTip="{Binding AddToCartTooltip}" Cursor="Hand">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="14">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                            <md:PackIcon Kind="CartPlus" Width="14" Height="14"/>
+                                                        </Button>
+                                                        <Button Background="#dc2626" BorderThickness="0" Foreground="White" Width="28" Height="28" Padding="0" Click="DeleteProduct_Click" Tag="{Binding Id}" ToolTip="{Binding DeleteTooltip}" Cursor="Hand" Margin="4,0,0,0">
+                                                            <Button.Template>
+                                                                <ControlTemplate TargetType="Button">
+                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="14">
+                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                                    </Border>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                            <md:PackIcon Kind="DeleteOutline" Width="14" Height="14"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Row="1" Margin="14,12,14,14">
+                                                        <TextBlock Text="{Binding Nome}" FontSize="14" FontWeight="SemiBold" Foreground="#1e293b" TextTrimming="CharacterEllipsis"/>
+                                                        <Grid Margin="0,8,0,0">
+                                                            <TextBlock Text="{Binding FormattedPrice}" Foreground="#e6570a" FontSize="16" FontWeight="Bold"/>
+                                                            <Border HorizontalAlignment="Right" Background="#f1f5f9" CornerRadius="4" Padding="6,2">
+                                                                <TextBlock Text="{Binding FormattedStock}" FontSize="11" Foreground="#64748b"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid x:Name="pageOrders" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtOrdersTitle" Text="Historico de Pedidos" FontSize="22" FontWeight="Bold" Foreground="#1e293b" Margin="0,0,0,20"/>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="listOrders">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="White" CornerRadius="8" Padding="18" Margin="0,0,0,8">
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/>
+                                                </Border.Effect>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Grid.Column="0" Background="#fff3e6" CornerRadius="8" Width="44" Height="44" Margin="0,0,15,0">
+                                                        <TextBlock Text="{Binding IdLabel}" Foreground="#e6570a" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding CustomerName}" Foreground="#1e293b" FontWeight="SemiBold" FontSize="14"/>
+                                                        <TextBlock Text="{Binding DateLabel}" Foreground="#94a3b8" FontSize="11" Margin="0,3,0,0"/>
+                                                        <TextBlock Text="{Binding ItemsLabel}" Foreground="#94a3b8" FontSize="11"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                        <TextBlock Text="{Binding TotalLabel}" Foreground="#16a34a" FontWeight="Bold" FontSize="16" HorizontalAlignment="Right"/>
+                                                        <Border Background="#dcfce7" CornerRadius="4" Padding="8,2" Margin="0,4,0,0">
+                                                            <TextBlock Text="{Binding StatusLabel}" Foreground="#16a34a" FontSize="10" FontWeight="SemiBold"/>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid x:Name="pageAnalytics" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtAnalyticsTitle" Text="Relatórios e Métricas" FontSize="22" FontWeight="Bold" Foreground="#1e293b" Margin="0,0,0,20"/>
+
+                            <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,20">
+                                <Border Background="White" CornerRadius="10" Padding="18,16" Margin="0,0,10,0">
+                                    <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                    <StackPanel>
+                                        <TextBlock x:Name="txtKpiRevenue" Text="R$ 0,00" Foreground="#e6570a" FontSize="22" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtKpiRevenueLabel" Text="Receita Total" Foreground="#94a3b8" FontSize="11" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="White" CornerRadius="10" Padding="18,16" Margin="0,0,10,0">
+                                    <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                    <StackPanel>
+                                        <TextBlock x:Name="txtKpiOrders" Text="0" Foreground="#7c3aed" FontSize="22" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtKpiOrdersLabel" Text="Total Pedidos" Foreground="#94a3b8" FontSize="11" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="White" CornerRadius="10" Padding="18,16" Margin="0,0,10,0">
+                                    <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                    <StackPanel>
+                                        <TextBlock x:Name="txtKpiProducts" Text="0" Foreground="#0891b2" FontSize="22" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtKpiProductsLabel" Text="Produtos Ativos" Foreground="#94a3b8" FontSize="11" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="White" CornerRadius="10" Padding="18,16">
+                                    <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                    <StackPanel>
+                                        <TextBlock x:Name="txtKpiAvg" Text="R$ 0,00" Foreground="#d97706" FontSize="22" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtKpiAvgLabel" Text="Ticket Medio" Foreground="#94a3b8" FontSize="11" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+
+                            <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="20">
+                                <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock x:Name="txtTopProductsTitle" Text="Produtos Mais Vendidos" Foreground="#1e293b" FontSize="15" FontWeight="Bold" Margin="0,0,0,15"/>
+                                    <ItemsControl Grid.Row="1" x:Name="listTopProducts">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Text="{Binding Rank}" Foreground="#e6570a" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" Foreground="#1e293b" FontSize="13" VerticalAlignment="Center"/>
+                                                    <TextBlock Grid.Column="2" Text="{Binding QtySold}" Foreground="#94a3b8" FontSize="12" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                                    <Border Grid.Column="3" Background="#f1f5f9" CornerRadius="4" Height="8">
+                                                        <Border Background="#e6570a" CornerRadius="4" HorizontalAlignment="Left" Width="{Binding BarWidth}"/>
+                                                    </Border>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Grid x:Name="pageCustomers" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtCustomersTitle" Text="Clientes" FontSize="22" FontWeight="Bold" Foreground="#1e293b" Margin="0,0,0,20"/>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="listCustomers">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="White" CornerRadius="8" Padding="18" Margin="0,0,0,8">
+                                                <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Ellipse Grid.Column="0" Width="40" Height="40" Margin="0,0,14,0">
+                                                        <Ellipse.Fill>
+                                                            <ImageBrush ImageSource="{Binding AvatarUrl}"/>
+                                                        </Ellipse.Fill>
+                                                    </Ellipse>
+                                                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Name}" Foreground="#1e293b" FontWeight="SemiBold" FontSize="14"/>
+                                                        <TextBlock Text="{Binding OrderCountLabel}" Foreground="#94a3b8" FontSize="11" Margin="0,2,0,0"/>
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="2" Text="{Binding TotalSpent}" Foreground="#16a34a" FontWeight="Bold" FontSize="15" VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <Grid x:Name="pageSettings" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="txtSettingsTitle" Text="Configurações" FontSize="22" FontWeight="Bold" Foreground="#1e293b" Margin="0,0,0,20"/>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <Border Background="White" CornerRadius="10" Padding="24" Margin="0,0,0,12">
+                                        <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                        <StackPanel>
+                                            <TextBlock Text="Configurar Email (SMTP)" Foreground="#1e293b" FontWeight="Bold" FontSize="15" Margin="0,0,0,16"/>
+                                            <TextBox x:Name="txtSmtpHost" md:HintAssist.Hint="Servidor SMTP (ex: smtp.gmail.com)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#1e293b" md:HintAssist.Foreground="#94a3b8" md:TextFieldAssist.UnderlineBrush="#e6570a" Margin="0,0,0,8"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox Grid.Column="0" x:Name="txtSmtpUser" md:HintAssist.Hint="Email/Usuário" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#1e293b" md:HintAssist.Foreground="#94a3b8" md:TextFieldAssist.UnderlineBrush="#e6570a"/>
+                                                <TextBox Grid.Column="2" x:Name="txtSmtpPort" md:HintAssist.Hint="Porta" Text="587" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="#1e293b" md:HintAssist.Foreground="#94a3b8" md:TextFieldAssist.UnderlineBrush="#e6570a"/>
+                                            </Grid>
+                                            <PasswordBox x:Name="txtSmtpPass" md:HintAssist.Hint="Senha / App Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Foreground="#1e293b" md:HintAssist.Foreground="#94a3b8" md:TextFieldAssist.UnderlineBrush="#e6570a" Margin="0,8,0,16"/>
+                                            <Button Content="SALVAR SMTP" Style="{StaticResource OrangeBtn}" HorizontalAlignment="Left" Click="SaveSmtp_Click"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Background="White" CornerRadius="10" Padding="24">
+                                        <Border.Effect><DropShadowEffect BlurRadius="6" Opacity="0.06" ShadowDepth="1"/></Border.Effect>
+                                        <StackPanel>
+                                            <TextBlock Text="Informações da API" Foreground="#1e293b" FontWeight="Bold" FontSize="15" Margin="0,0,0,16"/>
+                                            <TextBlock Text="Endereço:" Foreground="#94a3b8" FontSize="12"/>
+                                            <TextBlock Text="http://localhost:5000" Foreground="#e6570a" FontSize="14" FontWeight="SemiBold" Margin="0,2,0,10"/>
+                                            <TextBlock Text="Banco de Dados:" Foreground="#94a3b8" FontSize="12"/>
+                                            <TextBlock Text="SQLite (app.db)" Foreground="#1e293b" FontSize="14" Margin="0,2,0,10"/>
+                                            <TextBlock x:Name="txtApiStatus" Text="Status: Online" Foreground="#16a34a" FontSize="14" FontWeight="SemiBold"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

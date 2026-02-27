@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProductManagementSystem.MauiClient.MainPage"
+             BackgroundColor="#060913">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+            
+            <Label Text="ProductSync" FontSize="32" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#0ea5e9" />
+            <Label Text=".NET MAUI Cross-Platform" FontSize="14" HorizontalOptions="Center" TextColor="#94a3b8" Margin="0,-20,0,20"/>
+
+            <Frame BackgroundColor="#10172A" BorderColor="#1FFFFFFF" CornerRadius="15" Padding="20">
+                <VerticalStackLayout Spacing="20">
+                    <Entry x:Name="txtUsername" Placeholder="Username" PlaceholderColor="#64748b" TextColor="White" />
+                    <Entry x:Name="txtPassword" Placeholder="Password" IsPassword="True" PlaceholderColor="#64748b" TextColor="White" />
+                    <Button x:Name="AuthBtn" Text="LOGIN" Clicked="OnLoginClicked" BackgroundColor="#0ea5e9" TextColor="White" CornerRadius="8" HeightRequest="50" FontAttributes="Bold" />
+                    <Label x:Name="txtError" TextColor="#ef4444" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
